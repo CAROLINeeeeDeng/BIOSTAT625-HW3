@@ -13,3 +13,6 @@ Rcpp::NumericVector fit_mlr_cpp(Rcpp::NumericVector y, Rcpp::NumericVector x1, R
     Rcpp::NumericVector coefficients = Rcpp::solve(XTX, XTY);
     return coefficients;
   }
+  else {
+    std::cout<<"length are not the same"<<std::endl;
+}
