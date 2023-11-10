@@ -17,6 +17,12 @@
 # fit_slr
 # predict_slr
 # summary_slr
+# fit_mlr
+# predict_mlr
+# summary_mlr
+# anova_slr
+# anova_mlr
 
+usethis::use_rcpp()
 
 

@@ -10,8 +10,6 @@ Rcpp::NumericVector fit_slr(Rcpp::NumericVector y, Rcpp::NumericVector x) {
     return Rcpp::NumericVector::create(Rcpp::Named("intercept") = b0, Rcpp::Named("slope") = b1);
   }
   else {
-    printf("length are not the same");
+    std::cout<<"length are not the same"<<std::endl;
   }
 }
-
-
