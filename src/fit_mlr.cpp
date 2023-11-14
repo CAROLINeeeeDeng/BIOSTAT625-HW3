@@ -1,3 +1,4 @@
+// [[Rcpp::depends(Rcpp)]]
 #include <Rcpp.h>
 #include <vector>
 // [[Rcpp::export]]
@@ -10,13 +11,26 @@ Rcpp::NumericVector fit_mlr_cpp(Rcpp::NumericVector y, Rcpp::NumericMatrix x) {
         X(i, j) = x(i, j-1);
       }
     }
-
-    Rcpp::NumericMatrix XTX = Rcpp::transpose(X) * X;
-    Rcpp::NumericVector XTY = Rcpp::transpose(X) * y;
+    std::vector<std::vector<double>> XTX(x.ncol() + 1, std::vector<double>(x.ncol() + 1, 0));
+    for (int i = 0; i < x.ncol() + 1; ++i) {
+      for (int j = 0; j < x.ncol() + 1; ++j) {
+        for (int k = 0; k < x.ncol() + 1; ++k) {
+          XTX[i][j] += X(k, i) * X(k, j);
+        }
+      }
+    }
+    //Rcpp::NumericMatrix XTX = Rcpp::transpose(X) * X;
+    std::vector<double> XTY(x.ncol() + 1, 0);
+    for (int i = 0; i < x.ncol() + 1; ++i) {
+      for (int j = 0; j < x.ncol() + 1; ++j) {
+        XTY[i] += X(j, i) * y(j);
+      }
+    }
+    //Rcpp::NumericVector XTY = Rcpp::transpose(X) * y;
     std::vector<double> estimators(x.ncol() + 1, 0);
     for (int i=0; i<x.ncol()+1; ++i) {
       for (int j=0; j<x.ncol()+1; ++j) {
-        estimators[i] += XTX(i,j)*XTY(j);
+        estimators[i] += XTX[i][j]*XTY[j];
       }
     }
     Rcpp::NumericVector estimators_list(estimators.begin(), estimators.end());
