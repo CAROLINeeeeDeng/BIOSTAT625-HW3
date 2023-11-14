@@ -9,7 +9,7 @@ Rcpp::NumericVector fit_slr(Rcpp::NumericVector y, Rcpp::NumericVector x) {
     double SSX = Rcpp::sum((x - mean_x)*(x - mean_x));
     double b1 = SSXY/SSX;
     double b0 = mean_y - (b1 * mean_x);
-    return Rcpp::NumericVector::create(Rcpp::Named("intercept") = b0, Rcpp::Named("slope") = b1);
+    return Rcpp::NumericVector{b0, b1};
   }
   else {
     std::cout<<"length are not the same"<<std::endl;
