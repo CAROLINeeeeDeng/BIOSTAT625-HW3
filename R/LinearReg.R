@@ -1,10 +1,12 @@
 library(Rcpp)
 sourceCpp("src/fit_slr.cpp")
-fit_slr <- function(y, x) {
-  fit_slr(y, x)
+fit_simple_model <- function(y, x) {
+  return(c("(Intercept)" = fit_slr(y, x)[1], x = fit_slr(y, x)[2]))
 }
 sourceCpp("src/fit_mlr.cpp")
-fit_mlr <- function(x, y) {
+fit_multi_model <- function(x, y) {
   fit_mlr_cpp(x, y)
 }
+
+
 
