@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 #include <vector>
-
+// [[Rcpp::export]]
 Rcpp::NumericVector fit_mlr_cpp(Rcpp::NumericVector y, Rcpp::NumericMatrix x) {
   if ((x[0].size() == y.size()) {
     Rcpp::NumericMatrix X(x.nrow(), x.ncol() + 1);

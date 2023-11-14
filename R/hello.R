@@ -23,6 +23,10 @@
 # anova_slr cpp
 # anova_mlr cpp
 
-usethis::use_rcpp()
 
-
+#library(roxygen2)
+#library(devtools)
+#devtools::document()
+#usethis::use_rcpp()
+#usethis::use_testthat()
+#usethis::use_test()
