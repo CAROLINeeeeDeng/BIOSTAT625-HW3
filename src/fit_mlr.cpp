@@ -1,17 +1,19 @@
 #include <Rcpp.h>
+#include <vector>
 
-Rcpp::NumericVector fit_mlr_cpp(Rcpp::NumericVector y, Rcpp::NumericVector x1, Rcpp::NumericVector x2) {
-  if ((x1.size() == x2.size()) && (x2.size() == y.size())) {
-    Rcpp::NumericMatrix X(y.size(), 3);
-    for (int i = 0; i < y.size(); ++i) {
+Rcpp::NumericVector fit_mlr_cpp(Rcpp::NumericVector y, Rcpp::NumericMatrix x) {
+  if ((x[0].size() == y.size()) {
+    Rcpp::NumericMatrix X(x.nrow(), x.ncol() + 1);
+    for (size_t i=0; i<x.nrow(); ++i) {
       X(i, 0) = 1;
-      X(i, 1) = x1[i];
-      X(i, 2) = x2[i];
+      for (int j=1; j<x.ncol()+1; ++j){
+        X(i, j) = x(i, j-1);
+      }
     }
     Rcpp::NumericMatrix XTX = Rcpp::tranpose(X) * X;
     Rcpp::NumericVector XTY = Rcpp::tranpose(X) * y;
-    Rcpp::NumericVector coefficients = Rcpp::solve(XTX, XTY);
-    return coefficients;
+    Rcpp::NumericVector estimators = Rcpp::solve(XTX, XTY);
+    return estimators;
   }
   else {
     std::cout<<"length are not the same"<<std::endl;
