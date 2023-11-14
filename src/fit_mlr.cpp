@@ -48,14 +48,14 @@ Rcpp::NumericVector fit_mlr(Rcpp::NumericVector y, Rcpp::NumericMatrix x) {
     std::vector<std::vector<double>> XTX(x.ncol() + 1, std::vector<double>(x.ncol() + 1, 0.0));
     for (int i = 0; i < x.ncol() + 1; ++i) {
       for (int j = 0; j < x.ncol() + 1; ++j) {
-        for (int k = 0; k < x.ncol() + 1; ++k) {
+        for (int k = 0; k < x.nrow(); ++k) {
           XTX[i][j] += X(k, i) * X(k, j);
         }
       }
     }
     std::vector<double> XTY(x.ncol() + 1, 0.0);
     for (int i = 0; i < x.ncol() + 1; ++i) {
-      for (int j = 0; j < x.ncol() + 1; ++j) {
+      for (int j = 0; j < x.nrow(); ++j) {
         XTY[i] += X(j, i) * y(j);
       }
     }
