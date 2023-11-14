@@ -13,6 +13,6 @@ Rcpp::NumericVector fit_slr(Rcpp::NumericVector y, Rcpp::NumericVector x) {
   }
   else {
     std::cout<<"length are not the same"<<std::endl;
-    return 0;
+    return NULL;
   }
 }

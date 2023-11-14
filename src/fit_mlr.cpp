@@ -38,6 +38,6 @@ Rcpp::NumericVector fit_mlr_cpp(Rcpp::NumericVector y, Rcpp::NumericMatrix x) {
   }
   else {
     std::cout<<"length are not the same"<<std::endl;
-    return 0;
+    return NULL;
   }
 }
