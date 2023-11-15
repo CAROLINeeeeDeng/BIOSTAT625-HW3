@@ -15,9 +15,10 @@
 
 
 # fit_slr cpp
+# fit_mlr cpp
+
 # predict_slr cpp
 # summary_slr R
-# fit_mlr cpp
 # predict_mlr cpp
 # summary_mlr R
 # anova_slr cpp

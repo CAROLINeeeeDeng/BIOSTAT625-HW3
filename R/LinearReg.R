@@ -12,11 +12,16 @@ fit_simple_model <- function(y, x) {
 }
 
 
-fit_multi_model <- function(y, x_matrix) {
+fit_multi_model <- function(y, x_matrix, nullModel=F) {
   if(length(y)!=nrow(x_matrix)) {
     stop("Lengths of 'y' and 'x' must be the same.")
   }
-  coefficients = fit_mlr(y, x_matrix)
-  names(coefficients) = c("(Intercept)", colnames(x_matrix))
+  coefficients = fit_mlr(y, x_matrix, nullModel)
+  if (nullModel){
+    names(coefficients) = c(colnames(x_matrix))
+  }
+  else{
+    names(coefficients) = c("(Intercept)", colnames(x_matrix))
+  }
   return(coefficients)
 }

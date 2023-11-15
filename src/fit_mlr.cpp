@@ -36,33 +36,43 @@ std::vector<std::vector<double>> inverseMatrix(const std::vector<std::vector<dou
 }
 
 // [[Rcpp::export]]
-Rcpp::NumericVector fit_mlr(Rcpp::NumericVector y, Rcpp::NumericMatrix x) {
+Rcpp::NumericVector fit_mlr(Rcpp::NumericVector y, Rcpp::NumericMatrix x, Rcpp::LogicalVector nullModel = false) {
   if (x.nrow() == y.size()) {
-    Rcpp::NumericMatrix X(x.nrow(), x.ncol() + 1);
+    size_t var = x.ncol() + 1;
+    Rcpp::NumericMatrix X(x.nrow(), var);
     for (size_t i=0; i<x.nrow(); ++i) {
       X(i, 0) = 1;
-      for (int j=1; j<x.ncol()+1; ++j) {
+      for (int j=1; j<var; ++j) {
         X(i, j) = x(i, j-1);
       }
     }
-    std::vector<std::vector<double>> XTX(x.ncol() + 1, std::vector<double>(x.ncol() + 1, 0.0));
-    for (int i = 0; i < x.ncol() + 1; ++i) {
-      for (int j = 0; j < x.ncol() + 1; ++j) {
+    if (nullModel) {
+      var = x.ncol();
+      Rcpp::NumericMatrix X(x.nrow(), var);
+      for (size_t i=0; i<x.nrow(); ++i) {
+        for (int j=0; j<var; ++j) {
+          X(i, j) = x(i, j);
+        }
+      }
+    }
+    std::vector<std::vector<double>> XTX(var, std::vector<double>(var, 0.0));
+    for (int i = 0; i < var; ++i) {
+      for (int j = 0; j < var; ++j) {
         for (int k = 0; k < x.nrow(); ++k) {
           XTX[i][j] += X(k, i) * X(k, j);
         }
       }
     }
-    std::vector<double> XTY(x.ncol() + 1, 0.0);
-    for (int i = 0; i < x.ncol() + 1; ++i) {
+    std::vector<double> XTY(var, 0.0);
+    for (int i = 0; i < var; ++i) {
       for (int j = 0; j < x.nrow(); ++j) {
         XTY[i] += X(j, i) * y(j);
       }
     }
     std::vector<std::vector<double>> inverse_XTX = inverseMatrix(XTX);
-    std::vector<double> estimators(x.ncol() + 1, 0.0);
-    for (int i=0; i<x.ncol()+1; ++i) {
-      for (int j=0; j<x.ncol()+1; ++j) {
+    std::vector<double> estimators(var, 0.0);
+    for (int i=0; i<var; ++i) {
+      for (int j=0; j<var; ++j) {
         estimators[i] += inverse_XTX[i][j]*XTY[j];
       }
     }

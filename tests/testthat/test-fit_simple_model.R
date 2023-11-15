@@ -11,5 +11,5 @@ test_that("fit_slr works", {
   #Test Case 3 (xy length not equal):
   x = rnorm(10)
   y = rnorm(9)
-  expect_error(fit_multi_model(y, x, "Lengths of 'y' and 'x' must be the same."))
+  expect_error(fit_multi_model(y, x, "variable lengths differ"))
 })
