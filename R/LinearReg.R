@@ -12,6 +12,7 @@ fit_simple_model <- function(y, x) {
 
 fit_multi_model <- function(y, x_matrix) {
   if(length(y)!=nrow(x_matrix)) {return(NULL)}
-  fit_mlr_cpp(y, x_matrix)
-  return(fit_mlr_cpp(y, x_matrix))
+  coefficients = fit_mlr(y, x_matrix)
+  names(coefficients) = c("(Intercept)", colnames(x_matrix))
+  return(coefficients)
 }

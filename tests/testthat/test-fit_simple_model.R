@@ -1,3 +1,4 @@
+library(testthat)
 test_that("fit_slr works", {
   #Test Case 1:
   x = rnorm(20)
