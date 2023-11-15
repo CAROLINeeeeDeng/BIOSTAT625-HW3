@@ -19,5 +19,5 @@ test_that("fit_mlr works", {
   x2 = rnorm(99)
   x3 = rnorm(99)
   X_matrix <- cbind(x1, x2, x3)
-  expect_equal(fit_multi_model(y, X_matrix) , NULL)
+  expect_error(fit_multi_model(y, X_matrix, "Lengths of 'y' and 'x' must be the same."))
 })
