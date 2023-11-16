@@ -16,4 +16,37 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(LinearReg)
+library(bench)
 ```
+
+Since this is a package with functions deal with linear regression related problems, we can use a generated ramdom dataset to perform the example of usage. In real cases, the generated ramdom dataset could be replaced by any real dataset.
+```{r}
+x = rnorm(100)
+x1 = rnorm(100)
+x2 = rnorm(100)
+Y = rnorm(100)
+```
+
+Note that, before using LinearReg Package to deal with , a x_matrix should be generated, which combine the independent(predict) variables as a matrix, each variable as a column.
+```{r}
+x_matrix = cbind(x, x1, x2)
+```
+
+Test for fit_simple_model:
+```{r}
+# This is how to solve a SLR model of y and A:
+mod = fit_simple_model(y, x)
+# And we could also solve it using the existed funtion lm() in R:
+mod_lm = lm(y ~ x)
+
+# Now we can compare the return values(the estimated coefficients) calculated through fit_simple_model() and the estimated coeffcients calculated through lm():
+all.equal(mod, mod_lm$coefficients)
+# We can also compare the efficiency through bench::mark():
+efficiency = bench::mark(fit_simple_model(y, x),  lm(y ~ x)$coefficients,)
+print(efficiency)
+```
+
+
+
+
+
