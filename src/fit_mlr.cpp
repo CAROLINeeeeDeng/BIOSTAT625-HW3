@@ -2,6 +2,8 @@
 #include <Rcpp.h>
 #include <vector>
 #include <iostream>
+#include "fit_mlr.h"
+
 std::vector<std::vector<double>> inverseMatrix(const std::vector<std::vector<double>>& M) {
   int n = M.size();
   std::vector<std::vector<double>> matrix(n, std::vector<double>(2*n, 0.0));
