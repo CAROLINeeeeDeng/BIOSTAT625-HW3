@@ -30,4 +30,6 @@ roxygen2, devtools, Rcpp, testthat
 - input: 'y' as the response variable in vector; 'x_matrix' as the independent variables in matrix
 - return: the table of anova as a dataframe
 
-  
+
+### Installation
+```devtools::install_github("CAROLINeeeeDeng/BIOSTAT625-HW3", build_vignettes = TRUE, force = TRUE)```
