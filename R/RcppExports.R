@@ -5,6 +5,10 @@ fit_mlr <- function(y, x) {
     .Call('_LinearReg_fit_mlr', PACKAGE = 'LinearReg', y, x)
 }
 
+fit_mlr_null <- function(y, x) {
+    .Call('_LinearReg_fit_mlr_null', PACKAGE = 'LinearReg', y, x)
+}
+
 fit_slr <- function(y, x) {
     .Call('_LinearReg_fit_slr', PACKAGE = 'LinearReg', y, x)
 }

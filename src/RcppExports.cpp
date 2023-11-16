@@ -22,6 +22,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// fit_mlr_null
+Rcpp::NumericVector fit_mlr_null(Rcpp::NumericVector y, Rcpp::NumericMatrix x);
+RcppExport SEXP _LinearReg_fit_mlr_null(SEXP ySEXP, SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(fit_mlr_null(y, x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // fit_slr
 Rcpp::NumericVector fit_slr(Rcpp::NumericVector y, Rcpp::NumericVector x);
 RcppExport SEXP _LinearReg_fit_slr(SEXP ySEXP, SEXP xSEXP) {
@@ -61,6 +73,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_LinearReg_fit_mlr", (DL_FUNC) &_LinearReg_fit_mlr, 2},
+    {"_LinearReg_fit_mlr_null", (DL_FUNC) &_LinearReg_fit_mlr_null, 2},
     {"_LinearReg_fit_slr", (DL_FUNC) &_LinearReg_fit_slr, 2},
     {"_LinearReg_predict_slr_cpp", (DL_FUNC) &_LinearReg_predict_slr_cpp, 2},
     {"_LinearReg_predict_slr_cpp", (DL_FUNC) &_LinearReg_predict_slr_cpp, 2},

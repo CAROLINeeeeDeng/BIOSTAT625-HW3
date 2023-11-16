@@ -1,14 +1,14 @@
 Package: LinearReg
 Type: Package
 Title: Linear Regression Work
-Version: 0.1.0
+Version: 0.2.0
 Author: Neyan Deng (Caroline)
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: Do simple and multi regression work;
 	     Fitting the models;
-	     Printing out the summary of the result table
-	     Generating the ANOVA table
-License: What license is it under?
+	     Calculating the residuals;
+	     Generating the ANOVA table.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
@@ -17,5 +17,6 @@ LinkingTo:
 Imports: 
     Rcpp
 Suggests: 
-    testthat (>= 3.0.0)
+    knitr,
+    testthat (>= 3.0.0) rmarkdown)
 Config/testthat/edition: 3
