@@ -13,11 +13,3 @@ fit_slr <- function(y, x) {
     .Call('_LinearReg_fit_slr', PACKAGE = 'LinearReg', y, x)
 }
 
-predict_slr_cpp <- function(predict_var, estimators) {
-    .Call('_LinearReg_predict_slr_cpp', PACKAGE = 'LinearReg', predict_var, estimators)
-}
-
-predict_slr_cpp <- function(predict_var, estimators) {
-    .Call('_LinearReg_predict_slr_cpp', PACKAGE = 'LinearReg', predict_var, estimators)
-}
-

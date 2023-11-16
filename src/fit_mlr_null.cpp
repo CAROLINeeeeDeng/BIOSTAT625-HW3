@@ -4,7 +4,7 @@
 #include <iostream>
 #include "fit_mlr_null.h"
 
-std::vector<std::vector<double>> inverseMatrix(const std::vector<std::vector<double>>& M) {
+std::vector<std::vector<double>> inverseMatrixNull(const std::vector<std::vector<double>>& M) {
   int n = M.size();
   std::vector<std::vector<double>> matrix(n, std::vector<double>(2*n, 0.0));
   for (int i = 0; i < n; ++i) {
@@ -63,7 +63,7 @@ Rcpp::NumericVector fit_mlr_null(Rcpp::NumericVector y, Rcpp::NumericMatrix x) {
       }
     }
 
-    std::vector<std::vector<double>> inverse_XTX = inverseMatrix(XTX);
+    std::vector<std::vector<double>> inverse_XTX = inverseMatrixNull(XTX);
     std::vector<double> estimators(x.ncol(), 0.0);
     for (int i = 0; i < x.ncol(); ++i) {
       for (int j = 0; j < x.ncol(); ++j) {
