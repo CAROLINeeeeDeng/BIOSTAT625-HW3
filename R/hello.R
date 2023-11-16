@@ -24,6 +24,7 @@
 #library(roxygen2)
 #library(devtools)
 #library(testthat)
+#library(Rcpp)
 
 #devtools::document()
 #usethis::use_rcpp()

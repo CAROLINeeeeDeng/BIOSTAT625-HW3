@@ -1,13 +1,11 @@
 Package: LinearReg
 Type: Package
-Title: Linear Regression Work
+Title: What the Package Does (Title Case)
 Version: 0.2.0
-Author: Neyan Deng (Caroline)
+Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: Do simple and multi regression work;
-	     Fitting the models;
-	     Calculating the residuals;
-	     Generating the ANOVA table.
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -17,6 +15,5 @@ LinkingTo:
 Imports: 
     Rcpp
 Suggests: 
-    knitr,
-    testthat (>= 3.0.0) rmarkdown)
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
