@@ -1,0 +1,31 @@
+library(testthat)
+test_that("fit_mlr works", {
+  #Test Case 1:
+  y = rnorm(10)
+  x = rnorm(10)
+  X_matrix <- cbind(x)
+  expect_equal(residual(y, X_matrix, F), resid(lm(y~x)))
+  expect_equal(residual(y, X_matrix, T), resid(lm(y~x-1)))
+  #Test Case 2:
+  y = rnorm(10)
+  x1 = rnorm(10)
+  x2 = rnorm(10)
+  X_matrix <- cbind(x1, x2)
+  expect_equal(residual(y, X_matrix, F), resid(lm(y~x1+x2)))
+  expect_equal(residual(y, X_matrix, T), resid(lm(y~x1+x2-1)))
+  #Test Case 3:
+  y = rnorm(100)
+  A = rnorm(100)
+  B = rnorm(100)
+  C = rnorm(100)
+  X_matrix <- cbind(A, B, C)
+  expect_equal(residual(y, X_matrix, F), resid(lm(y~A+B+C)))
+  expect_equal(residual(y, X_matrix, T), resid(lm(y~A+B+C-1)))
+  #Test Case 4:
+  y = rnorm(100)
+  x1 = rnorm(99)
+  x2 = rnorm(99)
+  x3 = rnorm(99)
+  X_matrix <- cbind(x1, x2, x3)
+  expect_error(residual(y, X_matrix), "Lengths of 'y' and 'x' must be the same.")
+})

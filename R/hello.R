@@ -16,13 +16,9 @@
 
 # fit_slr cpp
 # fit_mlr cpp
-
-# predict_slr cpp
 # summary_slr R
-# predict_mlr cpp
 # summary_mlr R
-# anova_slr cpp
-# anova_mlr cpp
+# anova_mlr
 
 
 #library(roxygen2)
