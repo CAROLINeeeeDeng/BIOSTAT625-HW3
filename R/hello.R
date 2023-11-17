@@ -14,13 +14,6 @@
 #   Test Package:              'Cmd + Shift + T'
 
 
-# fit_slr cpp
-# fit_mlr cpp
-# summary_slr R
-# summary_mlr R
-# anova_mlr
-
-
 #library(roxygen2)
 #library(devtools)
 #library(testthat)
