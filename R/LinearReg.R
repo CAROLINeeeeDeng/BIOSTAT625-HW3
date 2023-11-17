@@ -1,19 +1,19 @@
 library(Rcpp)
-
 sourceCpp("src/fit_slr.cpp")
 sourceCpp("src/fit_mlr.cpp")
 sourceCpp("src/fit_mlr_null.cpp")
 
+
 #' fit_simple_model
 #'
-#' @param y
-#' @param x
-#'
-#' @return
-#' @export
-#'
+#' @param y a vector of values as response variable
+#' @param x a vector of values as predict variable
+#' @return The two estimator coefficients (intercept beta0 and slope beta1)
 #' @examples
-#'
+#' y = rnorm(100)
+#' x = rnorm(100)
+#' fit_simple_model(y, x)
+#' @export
 fit_simple_model <- function(y, x) {
   if (length(y) != length(x)) {
     stop("Lengths of 'y' and 'x' must be the same.")
@@ -21,6 +21,20 @@ fit_simple_model <- function(y, x) {
   return(c("(Intercept)" = fit_slr(y, x)[1], x = fit_slr(y, x)[2]))
 }
 
+
+#' fit_multi_model
+#'
+#' @param y a vector of values as response variable
+#' @param x_matrix a matrix of values as predict variable(s)
+#' @param null whether this is a null model or not, default as FALSE
+#' @return The vector of all the estimator coefficients
+#' @examples
+#' y = rnorm(100)
+#' A = rnorm(100)
+#' B = rnorm(100)
+#' fit_multi_model(y, x_matrix, null = FALSE)
+#' fit_multi_model(y, x_matrix, null = TRUE)
+#' @export
 fit_multi_model <- function(y, x_matrix, null = F) {
   if (length(y) != nrow(x_matrix)) {
     stop("Lengths of 'y' and 'x' must be the same.")
@@ -35,6 +49,20 @@ fit_multi_model <- function(y, x_matrix, null = F) {
   return(coefficients)
 }
 
+
+#' residual
+#'
+#' @param y a vector of values as response variable
+#' @param x_matrix a matrix of values as predict variable(s)
+#' @param null whether this is a null model or not, default as FALSE
+#' @return The vector of the corresponding residuals values
+#' @examples
+#' y = rnorm(100)
+#' A = rnorm(100)
+#' B = rnorm(100)
+#' residual(y, x_matrix, null = FALSE)
+#' residual(y, x_matrix, null = TRUE)
+#' @export
 residual <- function(y, x_matrix, null = F) {
   if (length(y) != nrow(x_matrix)) {
     stop("Lengths of 'y' and 'x' must be the same.")
@@ -54,6 +82,25 @@ residual <- function(y, x_matrix, null = F) {
   return(residuals_vector)
 }
 
+
+#' anova_test
+#'
+#' @param y a vector of values as response variable
+#' @param x_matrix a matrix of values as predict variable(s)
+#' @return Anova table as a dataframe
+#' #' \itemize{
+#' \item degree of freedom for model, degree of freedom for error
+#' \item SSE, SSR
+#' \item MSE, MSR
+#' \item F-statistics
+#' \item p-value
+#' }
+#' @examples
+#' y = rnorm(100)
+#' A = rnorm(100)
+#' B = rnorm(100)
+#' anova_test(y, x_matrix)
+#' @export
 anova_test <- function(y, x_matrix) {
   full_model = fit_multi_model(y, x_matrix, F)
   X_full = cbind(1, x_matrix)
