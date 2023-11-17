@@ -107,5 +107,5 @@ all.equal(anova_test(y, x_matrix)$`F value`, round(anova(lm(y ~ x_matrix))$`F va
 all.equal(anova_test(y, x_matrix)$`Pr(>F)`, round(anova(lm(y ~ x_matrix))$`Pr(>F)`, 4))
 
 # Compare the efficiency through bench::mark():
-efficiency4 = bench::mark(anova_test(y, x_matrix)$`Pr(>F)`,  round(anova(lm(y ~ x_matrix))$`Pr(>F)`,4),)
+efficiency4 = bench::mark(anova_test(y, x_matrix)$`Pr(>F)`, round(anova(lm(y ~ x_matrix))$`Pr(>F)`, 4),)
 print(efficiency4)
