@@ -4,10 +4,6 @@
 ### Description
 The LinearReg Package can fit SLR, MLR, calculate the residuals, and do Anova test with detailed values
 
-### Code Coverage
-
-[![Codecov](LINK_TO_CODECOV_BADGE)](LINK_TO_CODECOV_REPORT)
-
 
 ### Based on Package
 roxygen2, devtools, Rcpp, testthat
