@@ -32,21 +32,80 @@ Note that, before using LinearReg Package to deal with , a x_matrix should be ge
 x_matrix = cbind(x, x1, x2)
 ```
 
-Test for fit_simple_model:
+Test for fit_simple_model():
 ```{r}
-# This is how to solve a SLR model of y and A:
-mod = fit_simple_model(y, x)
+# This is how to solve a SLR model of y and x:
+mod1 = fit_simple_model(y, x)
 # And we could also solve it using the existed funtion lm() in R:
 mod_lm = lm(y ~ x)
 
 # Now we can compare the return values(the estimated coefficients) calculated through fit_simple_model() and the estimated coeffcients calculated through lm():
-all.equal(mod, mod_lm$coefficients)
+all.equal(mod1, mod_lm$coefficients)
+
 # We can also compare the efficiency through bench::mark():
 efficiency = bench::mark(fit_simple_model(y, x),  lm(y ~ x)$coefficients,)
 print(efficiency)
 ```
 
 
+Test for fit_multi_model():
+```{r}
+# This is how to solve a MLR model of y and x_matrix (containing three variables: x, x1, x2):
+# Let's first generate a null model without intercept, so the third input parameter 'null' should be TRUE:
+mod2_null = fit_multi_model(y, x_matrix, TRUE)
+# And we could also solve it using the existed funtion lm() with a '-1' or a '+0' in R:
+mod2_null_lm = lm(y ~ x + x1 + x2 - 1)
+
+# Same for model with intercept:
+mod2 = fit_multi_model(y, x_matrix, FALSE)
+mod2_lm = lm(y ~ x + x1 + x2)
+
+# Now we can compare the return values:
+all.equal(mod2_null, mod2_null_lm$coefficients)
+all.equal(mod2, mod2_lm$coefficients)
+
+# Compare the efficiency through bench::mark():
+efficiency2_null = bench::mark(fit_multi_model(y, x_matrix, T),  lm(y ~ x + x1 + x2 - 1)$coefficients,)
+efficiency2 = bench::mark(fit_multi_model(y, x_matrix, F),  lm(y ~ x + x1 + x2)$coefficients,)
+print(efficiency2_null)
+print(efficiency2)
+```
 
 
+Test for residual():
+```{r}
+# This is how to calculate the residuals of linear model of y and x_matrix (containing three variables: x, x1, x2):
+# Calculate residuals using residual():
+residual(y, x_matrix)
+# Solve this using the original function resid()
+resid(lm(y ~ x + x1 + x2))
 
+# Compare the return results:
+all.equal(residual(y, x_matrix), resid(lm(y ~ x + x1 + x2)))
+
+# Compare the efficiency through bench::mark():
+efficiency3 = bench::mark(residual(y, x_matrix),  resid(lm(y ~ x + x1 + x2)),)
+print(efficiency3)
+```
+
+
+Test for anova_test():
+```{r}
+# This is how to generate the anova table of linear model of y and x_matrix (containing three variables: x, x1, x2):
+# Anova using anova_test():
+anova_test(y, x_matrix)
+# Solve this using the original function anova()
+anova(lm(y ~ x_matrix))
+
+# Compare the return results:
+# Since the result of anova_test() has already been rounded to 4 decimal, the result of anova() will also be rounded to 4 decimal
+# Five values could be compares: Mean Square, Sum Square, Df, F-statistics, p-value:
+all.equal(anova_test(y, x_matrix)$`Mean Sq`, round(anova(lm(y ~ x_matrix))$`Mean Sq`, 4))
+all.equal(anova_test(y, x_matrix)$`Sum Sq`, round(anova(lm(y ~ x_matrix))$`Sum Sq`, 4))
+all.equal(anova_test(y, x_matrix)$`Df`, round(anova(lm(y ~ x_matrix))$`Df`, 4))
+all.equal(anova_test(y, x_matrix)$`F value`, round(anova(lm(y ~ x_matrix))$`F value`, 4))
+all.equal(anova_test(y, x_matrix)$`Pr(>F)`, round(anova(lm(y ~ x_matrix))$`Pr(>F)`, 4))
+
+# Compare the efficiency through bench::mark():
+efficiency4 = bench::mark(anova_test(y, x_matrix)$`Pr(>F)`,  round(anova(lm(y ~ x_matrix))$`Pr(>F)`,4),)
+print(efficiency4)

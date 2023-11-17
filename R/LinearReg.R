@@ -4,12 +4,23 @@ sourceCpp("src/fit_slr.cpp")
 sourceCpp("src/fit_mlr.cpp")
 sourceCpp("src/fit_mlr_null.cpp")
 
+#' fit_simple_model
+#'
+#' @param y
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
 fit_simple_model <- function(y, x) {
   if (length(y) != length(x)) {
     stop("Lengths of 'y' and 'x' must be the same.")
   }
   return(c("(Intercept)" = fit_slr(y, x)[1], x = fit_slr(y, x)[2]))
 }
+
 fit_multi_model <- function(y, x_matrix, null = F) {
   if (length(y) != nrow(x_matrix)) {
     stop("Lengths of 'y' and 'x' must be the same.")
@@ -44,7 +55,6 @@ residual <- function(y, x_matrix, null = F) {
 }
 
 anova_test <- function(y, x_matrix) {
-  #simple_model = fit_simple_model(y, x_matrix)
   full_model = fit_multi_model(y, x_matrix, F)
   X_full = cbind(1, x_matrix)
   fitted_full = X_full %*% full_model
